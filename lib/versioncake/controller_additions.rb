@@ -84,8 +84,10 @@ module VersionCake
   end
 end
 
-ActionController::Base.send(:include, VersionCake::ControllerAdditions)
+ActiveSupport.on_load :action_controller do
+  ActionController::Base.send(:include, VersionCake::ControllerAdditions)
 
-if defined?(ActionController::API)
-  ActionController::API.send(:include, VersionCake::ControllerAdditions)
+  if defined?(ActionController::API)
+    ActionController::API.send(:include, VersionCake::ControllerAdditions)
+  end
 end
